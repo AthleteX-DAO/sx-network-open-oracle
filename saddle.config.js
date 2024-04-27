@@ -131,6 +131,30 @@ module.exports = {
         { env: "ACCOUNT" },
         { file: "~/.ethereum/mainnet" }                   // Load from given file with contents as the private key (e.g. 0x...)
       ]
+    },
+    sx_testnet: {
+      providers: [                                      // How to load provider (processed in order)
+        { env: "PROVIDER" },                              // Try to load Http provider from `PROVIDER` env variable (e.g. env PROVIDER=http://...)
+        { http: "https://rpc.toronto.sx.technology" }                 // Fallback to localhost provider
+      ],
+      web3: {                                           // Web3 options for immediate confirmation in development mode
+        gas: [
+          { env: "GAS" },
+          { default: "4600000" }
+        ],
+        gas_price: [
+          { env: "GAS_PRICE" },
+          { default: "12000000000" }
+        ],
+        options: {
+          transactionConfirmationBlocks: 1,
+          transactionBlockTimeout: 5
+        }
+      },
+      accounts: [                                       // How to load default account for transactions
+        { env: "ACCOUNT" },                               // Load from `ACCOUNT` env variable (e.g. env ACCOUNT=0x...)
+        { unlocked: 0 }                                   // Else, try to grab first "unlocked" account from provider
+      ]
     }
   },
   get_network_file: (network) => {
