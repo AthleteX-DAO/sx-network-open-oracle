@@ -132,6 +132,26 @@ module.exports = {
         { file: "~/.ethereum/mainnet" }                   // Load from given file with contents as the private key (e.g. 0x...)
       ]
     },
+    sx_mainnet: {
+      providers: [
+        { env: "PROVIDER"},
+        { http: "https://rpc.sx.technology"},
+      ],
+      web3: {
+        gas: [
+          { env: "GAS"},
+          { default: "4000000"}
+        ],
+        gas_price: [ 
+          {env: "GAS_PRICE"},
+          { default: "500000"},
+        ],
+        accounts: [
+          { env: "ACCOUNT" },
+          { unlocked: 0 }
+        ]
+      },
+    },
     sx_testnet: {
       providers: [                                      // How to load provider (processed in order)
         { env: "PROVIDER" },                              // Try to load Http provider from `PROVIDER` env variable (e.g. env PROVIDER=http://...)
