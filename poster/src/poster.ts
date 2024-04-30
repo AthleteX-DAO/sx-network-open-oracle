@@ -12,7 +12,7 @@ import { CoinbaseConfig, readCoinbasePayload } from './sources/coinbase';
 import { decodeMessage, encode, zip } from './util';
 import { mockUniswapTokenPairs } from './mainnet_uniswap_mocker';
 
-const GAS_PRICE_API = 'https://api.compound.finance/api/gas_prices/get_gas_price';
+const GAS_PRICE_API = 'https://api.compound.finance/api/gas_prices/get_gas_price'; // TODO: Replace this API
 const DEFAULT_GAS_PRICE = 3_000_000_000; // use 3 gwei if api is unreachable for some reason
 
 export async function main(
