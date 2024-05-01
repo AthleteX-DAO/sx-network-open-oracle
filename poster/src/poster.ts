@@ -8,9 +8,13 @@ import {
   getSourceAddress
 } from './prev_price';
 import { BigNumber as BN } from 'bignumber.js';
-import { CoinbaseConfig, readCoinbasePayload } from './sources/coinbase';
 import { decodeMessage, encode, zip } from './util';
 import { mockUniswapTokenPairs } from './mainnet_uniswap_mocker';
+
+// Source of price data for posters
+import { CoinbaseConfig, readCoinbasePayload } from './sources/coinbase';
+import { AthleteXConfig, readAthleteXPayload } from './sources/athletex';
+import { SharkswapConfig, readSharkswapPayload } from './sources/sharkswap';
 
 const GAS_PRICE_API = 'https://api.compound.finance/api/gas_prices/get_gas_price'; // TODO: Replace this API
 const DEFAULT_GAS_PRICE = 3_000_000_000; // use 3 gwei if api is unreachable for some reason
@@ -154,6 +158,10 @@ export async function fetchPayloads(sources: string[], fetchFn=fetch): Promise<O
         response = await fetchFn(source);
       } else if (source['source'] === 'coinbase') {
         response = await readCoinbasePayload(<CoinbaseConfig>source, fetchFn);
+      } else if (source['source'] === 'sharkswap') {
+        response = await readSharkswapPayload(<SharkswapConfig>source, fetchFn);
+      } else if (source['source'] == 'athletex') {
+        response = await readAthleteXPayload(<AthleteXConfig> source, fetchFn);
       }
 
       return await response.json();
