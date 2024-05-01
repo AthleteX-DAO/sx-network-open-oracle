@@ -6,34 +6,10 @@ module.exports = {
   contracts: process.env['SADDLE_CONTRACTS'] || "contracts/*.sol contracts/**/*.sol tests/contracts/*.sol",  // Glob to match contract files
   tests: ['**/tests/*Test.js'],                         // Glob to match test files
   networks: {                                           // Define configuration for each network
-    ropsten: {
-      providers: [
-        {env: "PROVIDER"},
-        {file: "~/.ethereum/ropsten-url"},                    // Load from given file with contents as the URL (e.g. https://infura.io/api-key)
-      ],
-      web3: {
-        gas: [
-          {env: "GAS"},
-          {default: "8000000"}
-        ],
-        gas_price: [
-          {env: "GAS_PRICE"},
-          {default: "12000000000"}
-        ],
-        options: {
-          transactionConfirmationBlocks: 1,
-          transactionBlockTimeout: 5
-        }
-      },
-      accounts: [
-        {env: "ACCOUNT"},
-        {file: "~/.ethereum/ropsten"}                         // Load from given file with contents as the private key (e.g. 0x...)
-      ]
-    },
     development: {
       providers: [                                      // How to load provider (processed in order)
         { env: "PROVIDER" },                              // Try to load Http provider from `PROVIDER` env variable (e.g. env PROVIDER=http://...)
-        { http: "http://127.0.0.1:8545" }                 // Fallback to localhost provider
+        { http: "HTTP://127.0.0.1:7545" }                 // Fallback to localhost provider
       ],
       web3: {                                           // Web3 options for immediate confirmation in development mode
         gas: [
@@ -82,31 +58,6 @@ module.exports = {
         { unlocked: 0 }
       ]
     },
-    rinkeby: {
-      providers: [
-        { env: "PROVIDER" },
-        { file: "~/.ethereum/rinkeby-url" },              // Load from given file with contents as the URL (e.g. https://infura.io/api-key)
-        { http: "https://rinkeby-eth.compound.finance" }
-      ],
-      web3: {
-        gas: [
-          { env: "GAS" },
-          { default: "4600000" }
-        ],
-        gas_price: [
-          { env: "GAS_PRICE" },
-          { default: "12000000000" }
-        ],
-        options: {
-          transactionConfirmationBlocks: 1,
-          transactionBlockTimeout: 5
-        }
-      },
-      accounts: [
-        { env: "ACCOUNT" },
-        { file: "~/.ethereum/rinkeby" }                   // Load from given file with contents as the private key (e.g. 0x...)
-      ]
-    },
     mainnet: {
       providers: [
         { env: "PROVIDER" },
@@ -144,11 +95,11 @@ module.exports = {
         ],
         gas_price: [ 
           {env: "GAS_PRICE"},
-          { default: "500000"},
+          { default: "500000"}, // Gas prices may need to be modified due to cheaper txn costs on sx mainnet
         ],
         accounts: [
           { env: "ACCOUNT" },
-          { unlocked: 0 }
+          { unlocked: 0 }  // Take the first account
         ]
       },
     },
