@@ -3,5 +3,5 @@ export interface SharkswapConfig {
     endpoint: string
     api_key_id: string
 }
-
-export async function readAthleteXPayload(config: SharkswapConfig, fetchfn) {}
+// TODO: use sharkswap DEX (https gateway) for accurate prices on SX Network
+export async function readSharkswapPayload(config: SharkswapConfig, fetchfn) {}
